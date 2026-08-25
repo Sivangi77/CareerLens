@@ -1,10 +1,7 @@
+import AppRoutes from "./routes/AppRoutes";
+
 function App() {
-    return (
-        <div>
-            <h1>CareerLens</h1>
-            <p>AI Job Application Intelligence Platform</p>
-        </div>
-    );
+    return <AppRoutes />;
 }
 
 export default App;
