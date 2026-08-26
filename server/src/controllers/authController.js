@@ -1,5 +1,5 @@
 import { registerUser, loginUser } from "../services/authService.js";
-
+import User from "../models/User.js";
 import { validateSignup, validateLogin } from "../validators/authValidator.js";
 
 export const register = async (req, res, next) => {
@@ -51,9 +51,24 @@ export const login = async (req, res, next) => {
 
 export const getMe = async (req, res, next) => {
     try {
+        const user = await User.findById(req.userId).select(
+            "-password"
+        );
+
+        if (!user) {
+            const error = new Error("User not found");
+            error.statusCode = 404;
+            throw error;
+        }
+
         res.status(200).json({
             success: true,
-            userId: req.userId,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                createdAt: user.createdAt,
+            },
         });
     } catch (error) {
         next(error);

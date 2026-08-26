@@ -11,6 +11,7 @@ import Resume from "../pages/Resume";
 import Analytics from "../pages/Analytics";
 import Demo from "../pages/Demo";
 import HowItWorks from "../pages/HowItWorks";
+import Profile from "../pages/Profile";
 
 function AppRoutes() {
     return (
@@ -28,6 +29,7 @@ function AppRoutes() {
         <Route path="/applications" element={<Applications />} />
         <Route path="/applications/:id" element={<ApplicationDetails />} />
         <Route path="/resume" element={<Resume />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/analytics" element={<Analytics />} />
     </Route>
 </Routes>
