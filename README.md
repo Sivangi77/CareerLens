@@ -2,21 +2,39 @@
 
 AI-powered job application intelligence platform.
 
+CareerLens helps candidates understand how their resume aligns with a job description, identify skill gaps, and create personalized preparation plans.
+
+## Current Status
+
+🚧 Under Development
+
 ## Tech Stack
 
 ### Frontend
 - React
 - Vite
-- JavaScript
+- Tailwind CSS
+- React Router
+- Axios
 
 ### Backend
 - Node.js
 - Express
 - MongoDB
+- Mongoose
 
 ### AI
 - Google Gemini
 
-## Status
+## Architecture
 
-🚧 Under Development
+```text
+React
+  ↓
+Axios
+  ↓
+Express API
+  ↓
+Services
+  ↓
+MongoDB
