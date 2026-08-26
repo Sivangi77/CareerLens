@@ -18,4 +18,21 @@ const validateSignup = ({ name, email, password }) => {
     return errors;
 };
 
-export default validateSignup;
+const validateLogin = ({ email, password }) => {
+    const errors = {};
+
+    if (!email || !email.trim()) {
+        errors.email = "Email is required";
+    }
+
+    if (!password) {
+        errors.password = "Password is required";
+    }
+
+    return errors;
+};
+
+export {
+    validateSignup,
+    validateLogin,
+};
