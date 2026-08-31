@@ -4,6 +4,7 @@ import {
     getApplicationById,
     updateApplication,
     deleteApplication,
+    getApplicationEvents
 } from "../services/application/applicationService.js";
 
 export const createApplicationController = async (req, res, next) => {
@@ -24,6 +25,25 @@ export const getApplicationsController = async (req, res, next) => {
         const applications = await getApplications(req.userId);
 
         res.status(200).json(applications);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getApplicationEventsController = async (req, res, next) => {
+    try {
+        const events = await getApplicationEvents(
+            req.params.id,
+            req.userId
+        );
+
+        if (!events) {
+            return res.status(404).json({
+                message: "Application not found",
+            });
+        }
+
+        res.status(200).json(events);
     } catch (error) {
         next(error);
     }

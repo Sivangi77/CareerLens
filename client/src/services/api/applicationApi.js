@@ -15,6 +15,14 @@ export const getApplications = async () => {
     return response.data;
 };
 
+export const getApplicationEvents = async (applicationId) => {
+    const response = await apiClient.get(
+        `/applications/${applicationId}/events`
+    );
+
+    return response.data;
+};
+
 export const getApplicationById = async (applicationId) => {
     const response = await apiClient.get(
         `/applications/${applicationId}`

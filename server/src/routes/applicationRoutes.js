@@ -8,6 +8,7 @@ import {
     getApplicationByIdController,
     updateApplicationController,
     deleteApplicationController,
+    getApplicationEventsController,
 } from "../controllers/applicationController.js";
 
 const router = express.Router();
@@ -19,5 +20,6 @@ router.get("/", getApplicationsController);
 router.get("/:id", getApplicationByIdController);
 router.patch("/:id", updateApplicationController);
 router.delete("/:id", deleteApplicationController);
+router.get("/:id/events", getApplicationEventsController);
 
 export default router;
