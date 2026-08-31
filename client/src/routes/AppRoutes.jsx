@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Dashboard from "../pages/Dashboard";
 import Applications from "../pages/Applications";
+import AddApplication from "../pages/AddApplication";
 import ApplicationDetails from "../pages/ApplicationDetails";
 import Resume from "../pages/Resume";
 import Analytics from "../pages/Analytics";
@@ -27,6 +28,7 @@ function AppRoutes() {
     <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/applications" element={<Applications />} />
+        <Route path="/applications/new" element={<AddApplication />} />
         <Route path="/applications/:id" element={<ApplicationDetails />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/profile" element={<Profile />} />
