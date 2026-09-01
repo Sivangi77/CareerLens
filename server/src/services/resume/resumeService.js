@@ -1,6 +1,7 @@
 import Resume from "../../models/Resume.js";
 import cloudinary from "../../config/cloudinary.js";
 import extractPdfText from "../../utils/pdfParser.js";
+import parseResumeWithGemini from "./geminiResumeParser.js";
 import https from "https";
 
 const downloadFile = (url) => {
@@ -40,11 +41,23 @@ export const createResume = async (userId, file) => {
         uploadStream.end(file.buffer);
     });
 
-    return await Resume.create({
+    const resume = await Resume.create({
         userId,
         fileName: file.originalname,
         fileUrl: result.secure_url,
     });
+
+    const pdfBuffer = await downloadFile(resume.fileUrl);
+
+    const resumeText = await extractPdfText(pdfBuffer);
+
+    const parsedProfile = await parseResumeWithGemini(resumeText);
+
+    resume.parsedProfile = parsedProfile;
+
+    await resume.save();
+
+    return resume;
 };
 
 export const getResume = async (userId) => {
@@ -65,4 +78,26 @@ export const extractResumeText = async (userId) => {
     const text = await extractPdfText(pdfBuffer);
 
     return text;
+};
+
+export const parseResume = async (userId) => {
+    const resume = await Resume.findOne({ userId }).sort({
+        createdAt: -1,
+    });
+
+    if (!resume) {
+        return null;
+    }
+
+    const pdfBuffer = await downloadFile(resume.fileUrl);
+
+    const resumeText = await extractPdfText(pdfBuffer);
+
+    const parsedProfile = await parseResumeWithGemini(resumeText);
+
+    resume.parsedProfile = parsedProfile;
+
+    await resume.save();
+
+    return parsedProfile;
 };
