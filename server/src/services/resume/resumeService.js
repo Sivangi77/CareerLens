@@ -5,99 +5,117 @@ import parseResumeWithGemini from "./geminiResumeParser.js";
 import https from "https";
 
 const downloadFile = (url) => {
-    return new Promise((resolve, reject) => {
-        https.get(url, (response) => {
-            const chunks = [];
+  return new Promise((resolve, reject) => {
+    https
+      .get(url, (response) => {
+        const chunks = [];
 
-            response.on("data", (chunk) => {
-                chunks.push(chunk);
-            });
+        response.on("data", (chunk) => {
+          chunks.push(chunk);
+        });
 
-            response.on("end", () => {
-                resolve(Buffer.concat(chunks));
-            });
+        response.on("end", () => {
+          resolve(Buffer.concat(chunks));
+        });
 
-            response.on("error", reject);
-        }).on("error", reject);
-    });
+        response.on("error", reject);
+      })
+      .on("error", reject);
+  });
 };
 
 export const createResume = async (userId, file) => {
-    const result = await new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(
-            {
-                folder: "careerlens/resumes",
-                resource_type: "raw",
-            },
-            (error, result) => {
-                if (error) {
-                    reject(error);
-                } else {
-                    resolve(result);
-                }
-            }
-        );
+  const result = await new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder: "careerlens/resumes",
+        resource_type: "raw",
+      },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      },
+    );
 
-        uploadStream.end(file.buffer);
-    });
+    uploadStream.end(file.buffer);
+  });
 
-    const resume = await Resume.create({
-        userId,
-        fileName: file.originalname,
-        fileUrl: result.secure_url,
-    });
+  const resume = await Resume.findOneAndUpdate(
+    { userId },
+    {
+      userId,
+      fileName: file.originalname,
+      fileUrl: result.secure_url,
+      parsedProfile: {
+        summary: "",
+        skills: [],
+        experience: [],
+        education: [],
+        projects: [],
+        certifications: [],
+      },
+    },
+    {
+      returnDocument: "after",
+      upsert: true,
+      runValidators: true,
+    },
+  );
 
-    const pdfBuffer = await downloadFile(resume.fileUrl);
+  const pdfBuffer = await downloadFile(resume.fileUrl);
 
-    const resumeText = await extractPdfText(pdfBuffer);
+  const resumeText = await extractPdfText(pdfBuffer);
 
-    const parsedProfile = await parseResumeWithGemini(resumeText);
+  const parsedProfile = await parseResumeWithGemini(resumeText);
 
-    resume.parsedProfile = parsedProfile;
+  resume.parsedProfile = parsedProfile;
 
-    await resume.save();
+  await resume.save();
 
-    return resume;
+  return resume;
 };
 
 export const getResume = async (userId) => {
-    return await Resume.findOne({ userId }).sort({ createdAt: -1 });
+  return await Resume.findOne({ userId }).sort({ createdAt: -1 });
 };
 
 export const extractResumeText = async (userId) => {
-    const resume = await Resume.findOne({ userId }).sort({
-        createdAt: -1,
-    });
+  const resume = await Resume.findOne({ userId }).sort({
+    createdAt: -1,
+  });
 
-    if (!resume) {
-        return null;
-    }
+  if (!resume) {
+    return null;
+  }
 
-    const pdfBuffer = await downloadFile(resume.fileUrl);
+  const pdfBuffer = await downloadFile(resume.fileUrl);
 
-    const text = await extractPdfText(pdfBuffer);
+  const text = await extractPdfText(pdfBuffer);
 
-    return text;
+  return text;
 };
 
 export const parseResume = async (userId) => {
-    const resume = await Resume.findOne({ userId }).sort({
-        createdAt: -1,
-    });
+  const resume = await Resume.findOne({ userId }).sort({
+    createdAt: -1,
+  });
 
-    if (!resume) {
-        return null;
-    }
+  if (!resume) {
+    return null;
+  }
 
-    const pdfBuffer = await downloadFile(resume.fileUrl);
+  const pdfBuffer = await downloadFile(resume.fileUrl);
 
-    const resumeText = await extractPdfText(pdfBuffer);
+  const resumeText = await extractPdfText(pdfBuffer);
 
-    const parsedProfile = await parseResumeWithGemini(resumeText);
+  const parsedProfile = await parseResumeWithGemini(resumeText);
 
-    resume.parsedProfile = parsedProfile;
+  resume.parsedProfile = parsedProfile;
 
-    await resume.save();
+  await resume.save();
 
-    return parsedProfile;
+  return parsedProfile;
 };
