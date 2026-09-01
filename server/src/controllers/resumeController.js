@@ -1,6 +1,7 @@
 import {
     createResume,
     getResume,
+    extractResumeText,
 } from "../services/resume/resumeService.js";
 
 export const uploadResumeController = async (req, res, next) => {
@@ -30,6 +31,24 @@ export const getResumeController = async (req, res, next) => {
         }
 
         res.status(200).json(resume);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const extractResumeTextController = async (req, res, next) => {
+    try {
+        const text = await extractResumeText(req.userId);
+
+        if (text === null) {
+            return res.status(404).json({
+                message: "Resume not found.",
+            });
+        }
+
+        res.status(200).json({
+            text,
+        });
     } catch (error) {
         next(error);
     }
