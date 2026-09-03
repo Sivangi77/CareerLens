@@ -58,3 +58,11 @@ export const analyzeJobDescription = async (applicationId) => {
 
     return response.data;
 };
+
+export const getJobAnalysis = async (applicationId) => {
+    const response = await apiClient.get(
+        `/applications/${applicationId}/job-analysis`
+    );
+
+    return response.data;
+};
