@@ -249,6 +249,32 @@ function ApplicationDetails() {
 
               <MatchAnalysis applicationId={id} />
 
+              <div className="md:col-span-2 rounded-[24px] border border-[#DCDDD7] bg-white p-6">
+                <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#9A9F97]">
+                      Next Step
+                    </p>
+
+                    <h2 className="mt-2 text-xl font-bold text-[#17243A]">
+                      Prepare for this role
+                    </h2>
+
+                    <p className="mt-1 text-sm leading-6 text-[#667085]">
+                      Get personalized recommendations based on your resume and
+                      this job description.
+                    </p>
+                  </div>
+
+                  <Link
+                    to={`/applications/${id}/preparation`}
+                    className="shrink-0 rounded-full bg-[#17243A] px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+                  >
+                    Prepare for Interview →
+                  </Link>
+                </div>
+              </div>
+
               <div className="rounded-[24px] bg-white p-6 md:col-span-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#9A9F97]">
                   Notes

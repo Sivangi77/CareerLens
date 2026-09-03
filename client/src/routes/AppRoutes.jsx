@@ -13,19 +13,20 @@ import Analytics from "../pages/Analytics";
 import Demo from "../pages/Demo";
 import HowItWorks from "../pages/HowItWorks";
 import Profile from "../pages/Profile";
+import Preparation from "../pages/Preparation.jsx";
 
 function AppRoutes() {
-    return (
-        <Routes>
-    {/* Public Routes */}
-    <Route path="/" element={<Landing />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/signup" element={<Signup />} />
-    <Route path="/demo" element={<Demo />} />
-    <Route path="/how-it-works" element={<HowItWorks />} />
+  return (
+    <Routes>
+      {/* Public Routes */}
+      <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/demo" element={<Demo />} />
+      <Route path="/how-it-works" element={<HowItWorks />} />
 
-    {/* Protected Routes */}
-    <Route element={<ProtectedRoute />}>
+      {/* Protected Routes */}
+      <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/applications" element={<Applications />} />
         <Route path="/applications/new" element={<AddApplication />} />
@@ -33,9 +34,10 @@ function AppRoutes() {
         <Route path="/resume" element={<Resume />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/analytics" element={<Analytics />} />
-    </Route>
-</Routes>
-    );
+        <Route path="/applications/:id/preparation" element={<Preparation />} />
+      </Route>
+    </Routes>
+  );
 }
 
 export default AppRoutes;

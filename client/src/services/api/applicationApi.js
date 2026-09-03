@@ -82,3 +82,19 @@ export const getMatchAnalysis = async (applicationId) => {
 
     return response.data;
 };
+
+export const getSkillGapRecommendations = async (applicationId) => {
+    const response = await apiClient.get(
+        `/applications/${applicationId}/skill-gaps`
+    );
+
+    return response.data;
+};
+
+export const generateSkillGapRecommendations = async (applicationId) => {
+    const response = await apiClient.post(
+        `/applications/${applicationId}/skill-gaps`
+    );
+
+    return response.data;
+};
