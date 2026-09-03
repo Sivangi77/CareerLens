@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import JobAnalysis from "../components/analysis/JobAnalysis.jsx";
 
 import {
   getApplicationById,
@@ -76,7 +77,7 @@ function ApplicationDetails() {
 
       const updatedEvents = await getApplicationEvents(id);
       setEvents(updatedEvents);
-      
+
       setFormData({
         company: updatedApplication.company || "",
         role: updatedApplication.role || "",
@@ -239,6 +240,11 @@ function ApplicationDetails() {
                   {application.jobDescription || "No job description provided."}
                 </p>
               </div>
+
+              <JobAnalysis
+                applicationId={id}
+                jobDescription={application.jobDescription}
+              />
 
               <div className="rounded-[24px] bg-white p-6 md:col-span-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#9A9F97]">

@@ -50,3 +50,11 @@ export const deleteApplication = async (applicationId) => {
 
     return response.data;
 };
+
+export const analyzeJobDescription = async (applicationId) => {
+    const response = await apiClient.post(
+        `/applications/${applicationId}/analyze-jd`
+    );
+
+    return response.data;
+};
