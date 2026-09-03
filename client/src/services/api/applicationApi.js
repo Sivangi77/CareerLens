@@ -66,3 +66,19 @@ export const getJobAnalysis = async (applicationId) => {
 
     return response.data;
 };
+
+export const analyzeApplicationMatch = async (applicationId) => {
+    const response = await apiClient.post(
+        `/applications/${applicationId}/analyze-match`
+    );
+
+    return response.data;
+};
+
+export const getMatchAnalysis = async (applicationId) => {
+    const response = await apiClient.get(
+        `/applications/${applicationId}/match-analysis`
+    );
+
+    return response.data;
+};

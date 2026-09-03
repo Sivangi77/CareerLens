@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import JobAnalysis from "../components/analysis/JobAnalysis.jsx";
+import MatchAnalysis from "../components/analysis/MatchAnalysis";
 
 import {
   getApplicationById,
@@ -245,6 +246,8 @@ function ApplicationDetails() {
                 applicationId={id}
                 jobDescription={application.jobDescription}
               />
+
+              <MatchAnalysis applicationId={id} />
 
               <div className="rounded-[24px] bg-white p-6 md:col-span-2">
                 <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#9A9F97]">
