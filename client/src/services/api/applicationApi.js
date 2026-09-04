@@ -98,3 +98,19 @@ export const generateSkillGapRecommendations = async (applicationId) => {
 
     return response.data;
 };
+
+export const getStudyPlan = async (applicationId) => {
+    const response = await apiClient.get(
+        `/applications/${applicationId}/study-plan`
+    );
+
+    return response.data;
+};
+
+export const generateStudyPlan = async (applicationId) => {
+    const response = await apiClient.post(
+        `/applications/${applicationId}/study-plan`
+    );
+
+    return response.data;
+};

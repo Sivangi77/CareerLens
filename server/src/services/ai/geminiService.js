@@ -9,7 +9,6 @@ const isRetryableError = (error) => {
     const causeCode = error?.cause?.code;
 
     return (
-        status === 429 ||
         status === 500 ||
         status === 503 ||
         message.includes("UNAVAILABLE") ||
