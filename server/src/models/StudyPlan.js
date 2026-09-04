@@ -1,44 +1,55 @@
 import mongoose from "mongoose";
 
 const studyPlanSchema = new mongoose.Schema(
-    {
-        applicationId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Application",
-            required: true,
-            unique: true,
-        },
+  {
+    applicationId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Application",
+      required: true,
+      unique: true,
+    },
 
-        overview: {
+    overview: {
+      type: String,
+      default: "",
+    },
+
+    steps: {
+      type: [
+        {
+          order: {
+            type: Number,
+            required: true,
+          },
+          skill: {
+            type: String,
+            required: true,
+          },
+          focus: {
             type: String,
             default: "",
-        },
-
-        steps: {
+          },
+          tasks: {
             type: [
-                {
-                    order: {
-                        type: Number,
-                        required: true,
-                    },
-                    skill: {
-                        type: String,
-                        required: true,
-                    },
-                    focus: {
-                        type: String,
-                        default: "",
-                    },
-                    tasks: {
-                        type: [String],
-                        default: [],
-                    },
+              {
+                text: {
+                  type: String,
+                  required: true,
                 },
+                completed: {
+                  type: Boolean,
+                  default: false,
+                },
+              },
             ],
             default: [],
+          },
         },
+      ],
+      default: [],
     },
-    { timestamps: true }
+  },
+  { timestamps: true },
 );
 
 const StudyPlan = mongoose.model("StudyPlan", studyPlanSchema);

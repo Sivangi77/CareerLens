@@ -5,7 +5,8 @@ import {
     generateStudyPlanController,
     getStudyPlanController,
     generateInterviewQuestionsController,
-    getInterviewQuestionsController
+    getInterviewQuestionsController,
+    updateStudyTaskController
 } from "../controllers/preparationController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
@@ -44,6 +45,12 @@ router.get(
     "/applications/:id/interview-questions",
     authMiddleware,
     getInterviewQuestionsController
+);
+
+router.patch(
+    "/applications/:id/study-plan/tasks",
+    authMiddleware,
+    updateStudyTaskController
 );
 
 export default router;

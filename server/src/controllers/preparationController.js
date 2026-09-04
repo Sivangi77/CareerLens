@@ -6,6 +6,7 @@ import {
 import {
     generateStudyPlan,
     getStudyPlan,
+    updateStudyTask
 } from "../services/preparation/studyPlanService.js";
 
 import {
@@ -93,6 +94,24 @@ const getInterviewQuestionsController = async (req, res, next) => {
     }
 };
 
+const updateStudyTaskController = async (req, res, next) => {
+    try {
+        const { stepOrder, taskIndex, completed } = req.body;
+
+        const studyPlan = await updateStudyTask(
+            req.params.id,
+            req.userId,
+            stepOrder,
+            taskIndex,
+            completed
+        );
+
+        res.status(200).json(studyPlan);
+    } catch (error) {
+        next(error);
+    }
+};
+
 export {
     generateSkillGaps,
     getSkillGaps,
@@ -100,4 +119,5 @@ export {
     getStudyPlanController,
     generateInterviewQuestionsController,
     getInterviewQuestionsController,
+    updateStudyTaskController,
 };

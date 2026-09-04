@@ -130,3 +130,21 @@ export const generateInterviewQuestions = async (applicationId) => {
 
     return response.data;
 };
+
+export const updateStudyTask = async (
+    applicationId,
+    stepOrder,
+    taskIndex,
+    completed
+) => {
+    const response = await apiClient.patch(
+        `/applications/${applicationId}/study-plan/tasks`,
+        {
+            stepOrder,
+            taskIndex,
+            completed,
+        }
+    );
+
+    return response.data;
+};
