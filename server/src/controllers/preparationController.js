@@ -8,6 +8,11 @@ import {
     getStudyPlan,
 } from "../services/preparation/studyPlanService.js";
 
+import {
+    generateInterviewQuestions,
+    getInterviewQuestions,
+} from "../services/preparation/interviewQuestionService.js";
+
 const generateSkillGaps = async (req, res, next) => {
     try {
         const analysis =
@@ -62,9 +67,37 @@ const getStudyPlanController = async (req, res, next) => {
     }
 };
 
+const generateInterviewQuestionsController = async (req, res, next) => {
+    try {
+        const questions = await generateInterviewQuestions(
+            req.params.id,
+            req.userId
+        );
+
+        res.status(200).json(questions);
+    } catch (error) {
+        next(error);
+    }
+};
+
+const getInterviewQuestionsController = async (req, res, next) => {
+    try {
+        const questions = await getInterviewQuestions(
+            req.params.id,
+            req.userId
+        );
+
+        res.status(200).json(questions);
+    } catch (error) {
+        next(error);
+    }
+};
+
 export {
     generateSkillGaps,
     getSkillGaps,
     generateStudyPlanController,
     getStudyPlanController,
+    generateInterviewQuestionsController,
+    getInterviewQuestionsController,
 };

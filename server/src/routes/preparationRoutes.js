@@ -3,7 +3,9 @@ import {
     generateSkillGaps,
     getSkillGaps,
     generateStudyPlanController,
-    getStudyPlanController
+    getStudyPlanController,
+    generateInterviewQuestionsController,
+    getInterviewQuestionsController
 } from "../controllers/preparationController.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 
@@ -30,6 +32,18 @@ router.get(
     "/applications/:id/study-plan",
     authMiddleware,
     getStudyPlanController
+);
+
+router.post(
+    "/applications/:id/interview-questions",
+    authMiddleware,
+    generateInterviewQuestionsController
+);
+
+router.get(
+    "/applications/:id/interview-questions",
+    authMiddleware,
+    getInterviewQuestionsController
 );
 
 export default router;

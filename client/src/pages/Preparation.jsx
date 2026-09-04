@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import SkillGapRecommendations from "../components/preparation/SkillGapRecommendations.jsx";
 import StudyPlan from "../components/preparation/StudyPlan.jsx";
+import InterviewQuestions from "../components/preparation/InterviewQuestions.jsx";
 
 const Preparation = () => {
   const { id } = useParams();
@@ -34,6 +35,8 @@ const Preparation = () => {
           <SkillGapRecommendations applicationId={id} />
 
           <StudyPlan applicationId={id} />
+
+          <InterviewQuestions applicationId={id} />
         </div>
       </main>
     </div>

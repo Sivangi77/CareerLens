@@ -114,3 +114,19 @@ export const generateStudyPlan = async (applicationId) => {
 
     return response.data;
 };
+
+export const getInterviewQuestions = async (applicationId) => {
+    const response = await apiClient.get(
+        `/applications/${applicationId}/interview-questions`
+    );
+
+    return response.data;
+};
+
+export const generateInterviewQuestions = async (applicationId) => {
+    const response = await apiClient.post(
+        `/applications/${applicationId}/interview-questions`
+    );
+
+    return response.data;
+};
