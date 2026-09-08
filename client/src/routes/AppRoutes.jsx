@@ -14,6 +14,7 @@ import Demo from "../pages/Demo";
 import HowItWorks from "../pages/HowItWorks";
 import Profile from "../pages/Profile";
 import Preparation from "../pages/Preparation.jsx";
+import MainLayout from "../components/layout/MainLayout";
 
 function AppRoutes() {
   return (
@@ -27,14 +28,19 @@ function AppRoutes() {
 
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/applications" element={<Applications />} />
-        <Route path="/applications/new" element={<AddApplication />} />
-        <Route path="/applications/:id" element={<ApplicationDetails />} />
-        <Route path="/resume" element={<Resume />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/analytics" element={<Analytics />} />
-        <Route path="/applications/:id/preparation" element={<Preparation />} />
+        <Route element={<MainLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/applications" element={<Applications />} />
+          <Route path="/applications/new" element={<AddApplication />} />
+          <Route path="/applications/:id" element={<ApplicationDetails />} />
+          <Route path="/resume" element={<Resume />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route
+            path="/applications/:id/preparation"
+            element={<Preparation />}
+          />
+        </Route>
       </Route>
     </Routes>
   );

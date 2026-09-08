@@ -8,6 +8,7 @@ import resumeRoutes from "./routes/resumeRoutes.js";
 import analysisRoutes from "./routes/analysisRoutes.js";
 import matchRoutes from "./routes/matchRoutes.js";
 import preparationRoutes from "./routes/preparationRoutes.js";
+import analyticsRoutes from "./routes/analyticsRoutes.js";
 
 import notFoundMiddleware from "./middleware/notFoundMiddleware.js";
 import errorMiddleware from "./middleware/errorMiddleware.js";
@@ -24,6 +25,7 @@ app.use("/api/resume", resumeRoutes);
 app.use("/api", analysisRoutes);
 app.use("/api", matchRoutes);
 app.use("/api", preparationRoutes);
+app.use("/api/analytics", analyticsRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);

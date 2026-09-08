@@ -189,6 +189,33 @@ function ApplicationDetails() {
               </div>
             </div>
 
+            <div className="mt-6 flex flex-wrap gap-3">
+              <span className="rounded-full bg-[#17243A] px-4 py-2 text-sm font-semibold text-white">
+                Overview
+              </span>
+
+              <a
+                href="#jd-analysis"
+                className="rounded-full border border-[#DCDDD7] bg-white px-4 py-2 text-sm font-semibold text-[#667085] transition hover:border-[#8BAE42] hover:text-[#17243A]"
+              >
+                JD Analysis
+              </a>
+
+              <a
+                href="#match-analysis"
+                className="rounded-full border border-[#DCDDD7] bg-white px-4 py-2 text-sm font-semibold text-[#667085] transition hover:border-[#8BAE42] hover:text-[#17243A]"
+              >
+                Match Analysis
+              </a>
+
+              <Link
+                to={`/applications/${id}/preparation`}
+                className="rounded-full border border-[#DCDDD7] bg-white px-4 py-2 text-sm font-semibold text-[#667085] transition hover:border-[#8BAE42] hover:text-[#17243A]"
+              >
+                Preparation
+              </Link>
+            </div>
+
             {/* Details */}
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               <div className="rounded-[24px] bg-white p-6">
@@ -242,12 +269,16 @@ function ApplicationDetails() {
                 </p>
               </div>
 
-              <JobAnalysis
-                applicationId={id}
-                jobDescription={application.jobDescription}
-              />
+              <div id="jd-analysis" className="md:col-span-2 scroll-mt-8">
+                <JobAnalysis
+                  applicationId={id}
+                  jobDescription={application.jobDescription}
+                />
+              </div>
 
-              <MatchAnalysis applicationId={id} />
+              <div id="match-analysis" className="md:col-span-2 scroll-mt-8">
+                <MatchAnalysis applicationId={id} />
+              </div>
 
               <div className="md:col-span-2 rounded-[24px] border border-[#DCDDD7] bg-white p-6">
                 <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
